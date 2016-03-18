@@ -5,7 +5,6 @@ import (
 	"strconv"
 )
 
-
 var m = map[string]string{
 	"I": "1",
 	"i": "1",
@@ -46,7 +45,6 @@ func main() {
 	fmt.Println("Great! Now insert your second personal info (e.g.1968)")
 	fmt.Scanln(&s2)
 
-
 	var m int
 	if length == "same" {
 		m = len(phrse)
@@ -66,10 +64,12 @@ func CompareLengths(p Passphrase, m int) string {
 	var password string
 	switch {
 	case n == m:
-		fmt.Println( "Same lengths." )
+		fmt.Println("Same lengths.")
 		password = SameLengths(p, n)
+
 	case n > m:
 		fmt.Println("Phrase longer than desired.")
+		password = Longer(p, m)
 	case n < m:
 		fmt.Println("Phrase shorter than desired.")
 		password = Shorter(p, m, n)

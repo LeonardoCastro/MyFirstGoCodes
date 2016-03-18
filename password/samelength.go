@@ -1,49 +1,53 @@
 package main
 
 import (
-  "time"
-  "math/rand"
-  "regexp"
-  "strings"
-  "fmt"
-  "strconv"
+	"fmt"
+	"math/rand"
+	"regexp"
+	"strconv"
+	"strings"
+	"time"
 )
 
 // Longer returns a passphrase when the desired length is smaller than the phrase's length.
 func Longer(p Passphrase, m int) string {
-  password := p.Phrase
-
-  password = WordsForSym(password)
-  n := len(password)
-  p.Phrase = password
-  switch  {
-  case n < m:
-    password = Shorter(p, m, n)
-  case n == m:
-    password = SameLengths(p, n)
-  case n > m:
-
-    array_password := strings.Split(password, "")
-    s1 := p.PersonalInfo1
-    s2 := p.PersonalInfo2
-
-    idx1 := strings.Index(password, s1)
-    idx2 := strings.Index(password, s2)
-
-    changes := 0
-    for changes < m-n {
-      if i := rand.Intn(n); (i < idx1 && i >= idx1+len(s1)) && (i < idx2 && i >= idx2+len(s2)) {
-        array_password[i] = ""
-        changes += 1
-      }
-    }
-    p.Phrase = strings.Join(array_password, "")
-    password = SameLengths(p, n)
-  }
-  return password
+	password := p.Phrase
+	password = WordsForSym(password)
+	n := len(password)
+	p.Phrase = password
+	switch {
+	case n < m:
+		password = Shorter(p, m, n)
+	case n == m:
+		password = SameLengths(p, n)
+	case n > m:
+		password = Shortening(p, m, n)
+	}
+	return password
 }
 
+// Shortening erases chars from the user's phrase until the desired length is obtained.
+func Shortening(p Passphrase, m, n int) string {
 
+	arrayPassword := strings.Split(p.Phrase, "")
+	s1 := p.PersonalInfo1
+	s2 := p.PersonalInfo2
+
+	idx1 := strings.Index(p.Phrase, s1)
+	idx2 := strings.Index(p.Phrase, s2)
+
+	changes := 0
+	for changes < m-n {
+		if i := rand.Intn(n); (i < idx1 && i >= idx1+len(s1)) && (i < idx2 && i >= idx2+len(s2)) {
+			arrayPassword[i] = ""
+			changes++
+		}
+	}
+	p.Phrase = strings.Join(arrayPassword, "")
+	password := SameLengths(p, n)
+
+	return password
+}
 
 // FindPassword method to found safe passwords
 func FindPassword(p Passphrase) string {
