@@ -11,10 +11,9 @@ import (
 
 // Longer returns a passphrase when the desired length is smaller than the phrase's length.
 func Longer(p Passphrase, m int) string {
+	p.Phrase = WordsForSym(p.Phrase)
+	n := len(p.Phrase)
 	password := p.Phrase
-	password = WordsForSym(password)
-	n := len(password)
-	p.Phrase = password
 	switch {
 	case n < m:
 		password = Shorter(p, m, n)
