@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"math/rand"
 	"regexp"
 	"strconv"
@@ -30,13 +31,18 @@ func SameLengths(p Passphrase, n int) string {
 	ns1 := len(s1)
 	ns2 := len(s2)
 
-	// Quitamos 1968 de donde esté
+	// Quitamos s2 de donde esté
 	if strings.Contains(password, s2) {
 		password = strings.Replace(password, s2, "", -1)
 	}
 
-	arrayPassword := strings.Split(password, "")
+	// Quitamos s2 de donde esté
+	if strings.Contains(password, s1) {
+		password = strings.Replace(password, s1, "", -1)
+	}
 
+	// arrayPassword := strings.Split(password, "")
+	fmt.Println(password)
 	arrayS1 := strings.Split(s1, "")
 	arrayS2 := strings.Split(s2, "")
 
@@ -44,34 +50,47 @@ func SameLengths(p Passphrase, n int) string {
 
 	switch {
 	case ns1 >= ns2:
-		password = ProcessSameLength(arrayS1, arrayS2, arrayPassword, ns2, paso, n)
-	case ns2 < ns1:
-		password = ProcessSameLength(arrayS2, arrayS1, arrayPassword, ns1, paso, n)
+		password = ProcessSameLength(arrayS1, arrayS2, password, ns2, ns1, paso)
+	case ns2 > ns1:
+		password = ProcessSameLength(arrayS2, arrayS1, password, ns2, ns1, paso)
 	}
 	return password
 }
 
 // ProcessSameLength distributes s1 and s2 randomly into the password
-func ProcessSameLength(arrayS1, arrayS2, arrayPassword []string, ns2, paso, n int) string {
+func ProcessSameLength(arrayS1, arrayS2 []string, password string, ns2, ns1, paso int) string {
 
 	seed := time.Now().UTC().UnixNano()
 	rand.Seed(seed)
 
-	for i := 0; i < ns2; i++ {
-		var j int
-		if paso-1 != 1 {
-			j = rand.Intn(paso+1) + 1
-		} else if paso-1 == 1 {
-			j = 1
-		}
+	var cuenta1, cuenta2, L int
 
-		arrayPassword[i] = arrayS1[i]
-		arrayPassword[i+j] = arrayS2[i]
+	for L < ns1+ns2 {
+
+		s := rand.Intn(2)
+
+		if s == 0 {
+			password, cuenta1 = Fill(password, arrayS1, cuenta1)
+		} else {
+			password, cuenta2 = Fill(password, arrayS2, cuenta2)
+		}
+		L = cuenta1 + cuenta2
 	}
 
-	arrayPassword = No3strings(arrayPassword)
+	arrayPassword := No3strings(strings.Split(password, ""))
 
 	return strings.Join(arrayPassword, "")
+}
+
+// Fill fills password with personal info
+func Fill(password string, array []string, cuenta int) (string, int) {
+
+	if cuenta < len(array) {
+		j := rand.Intn(len(password) + 1)
+		password = password[:j] + array[cuenta] + password[j:]
+		cuenta++
+	}
+	return password, cuenta
 }
 
 // No3strings verifies that there is no three consecutive strings.

@@ -51,7 +51,6 @@ func main() {
 	} else {
 		m, _ = strconv.Atoi(length)
 	}
-
 	p := Passphrase{phrse, s1, s2}
 	pssphrase := CompareLengths(p, m)
 	fmt.Println("Your passphrase could be:")

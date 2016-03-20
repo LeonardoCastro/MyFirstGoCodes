@@ -27,6 +27,8 @@ func Longer(p Passphrase, m int) string {
 
 // Shortening erases chars from the user's phrase until the desired length is obtained.
 func Shortening(p Passphrase, m, n int) string {
+	seed := time.Now().UTC().UnixNano()
+	rand.Seed(seed)
 
 	arrayPassword := strings.Split(p.Phrase, "")
 	s1 := p.PersonalInfo1
@@ -36,12 +38,13 @@ func Shortening(p Passphrase, m, n int) string {
 	idx2 := strings.Index(p.Phrase, s2)
 
 	changes := 0
-	for changes < m-n {
-		if i := rand.Intn(n); (i < idx1 && i >= idx1+len(s1)) && (i < idx2 && i >= idx2+len(s2)) {
+	for changes < n-m+1 {
+		if i := rand.Intn(n); (i < idx1 || i >= idx1+len(s1)) && (i < idx2 || i >= idx2+len(s2)) {
 			arrayPassword[i] = ""
 			changes++
 		}
 	}
+	fmt.Println(arrayPassword)
 	p.Phrase = strings.Join(arrayPassword, "")
 	password := SameLengths(p, n)
 
