@@ -29,7 +29,7 @@ func SameLengths(p Passphrase, n int) string {
 	}
 
 	// arrayPassword := strings.Split(password, "")
-	fmt.Println(password)
+	// fmt.Println(password)
 	arrayS1 := strings.Split(s1, "")
 	arrayS2 := strings.Split(s2, "")
 

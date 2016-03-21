@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	//	"fmt"
 	"math/rand"
 	"strconv"
 	"strings"
@@ -33,17 +33,18 @@ func Shortening(p Passphrase, m, n int) string {
 	s1 := p.PersonalInfo1
 	s2 := p.PersonalInfo2
 
-	idx1 := strings.Index(p.Phrase, s1)
-	idx2 := strings.Index(p.Phrase, s2)
-
 	changes := 0
-	for changes < n-m+1 {
-		if i := rand.Intn(n); (i < idx1 || i >= idx1+len(s1)) && (i < idx2 || i >= idx2+len(s2)) {
+	for changes < n-m {
+		idx1 := strings.Index(strings.Join(arrayPassword, ""), s1)
+		idx2 := strings.Index(strings.Join(arrayPassword, ""), s2)
+
+		if i := rand.Intn(n - changes); (i < idx1 || i > idx1+len(s1)-1) && (i < idx2 || i > idx2+len(s2)-1) {
 			arrayPassword[i] = ""
+			arrayPassword = strings.Split(strings.Join(arrayPassword, ""), "")
 			changes++
 		}
 	}
-	fmt.Println(arrayPassword)
+	//fmt.Println(arrayPassword)
 	p.Phrase = strings.Join(arrayPassword, "")
 	password := SameLengths(p, n)
 

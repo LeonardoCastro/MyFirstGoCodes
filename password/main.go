@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"strconv"
+	//	"strconv"
 )
 
 var m = map[string]string{
@@ -30,31 +30,51 @@ type Passphrase struct {
 }
 
 func main() {
-	var phrse, length, s1, s2 string
-	fmt.Println("Welcome to the passphrase generator.")
 
-	fmt.Println("Please insert your personal phrase without spaces (e.g. MyNameIsJohnAndIWasBornOn1968).")
-	fmt.Scanln(&phrse)
+	phrase := "WoodTaxi370"
+	s1 := "Taxi"
+	s2 := "370"
+	m := 8
 
-	fmt.Println("What is the desired length for your password (number or 'same' if you want the same length as your phrase).")
-	fmt.Scanln(&length)
+	M := TestFrecuency(phrase, s1, s2, m)
+	fmt.Println(M)
 
-	fmt.Println("Thank you. Now please insert your personal info present on the past phrase (e.g. John)")
-	fmt.Scanln(&s1)
-
-	fmt.Println("Great! Now insert your second personal info (e.g.1968)")
-	fmt.Scanln(&s2)
-
-	var m int
-	if length == "same" {
-		m = len(phrse)
-	} else {
-		m, _ = strconv.Atoi(length)
-	}
-	p := Passphrase{phrse, s1, s2}
-	pssphrase := CompareLengths(p, m)
-	fmt.Println("Your passphrase could be:")
-	fmt.Println(pssphrase)
+	// for _, s := range s1 {
+	// 	for i := 0; i < m; i++ {
+	// 		fmt.Println(s, M[Coord{i, string(s)}])
+	// 	}
+	// }
+	//
+	// for _, s := range s2 {
+	// 	for i := 0; i < m; i++ {
+	// 		fmt.Println("%v placed on %v: %v times", s, i, M[Coord{i, string(s)}])
+	// 	}
+	// }
+	// var phrse, length, s1, s2 string
+	// fmt.Println("Welcome to the passphrase generator.")
+	//
+	// fmt.Println("Please insert your personal phrase without spaces (e.g. MyNameIsJohnAndIWasBornOn1968).")
+	// fmt.Scanln(&phrse)
+	//
+	// fmt.Println("What is the desired length for your password (number or 'same' if you want the same length as your phrase).")
+	// fmt.Scanln(&length)
+	//
+	// fmt.Println("Thank you. Now please insert your personal info present on the past phrase (e.g. John)")
+	// fmt.Scanln(&s1)
+	//
+	// fmt.Println("Great! Now insert your second personal info (e.g.1968)")
+	// fmt.Scanln(&s2)
+	//
+	// var m int
+	// if length == "same" {
+	// 	m = len(phrse)
+	// } else {
+	// 	m, _ = strconv.Atoi(length)
+	// }
+	// p := Passphrase{phrse, s1, s2}
+	// pssphrase := CompareLengths(p, m)
+	// fmt.Println("Your passphrase could be:")
+	// fmt.Println(pssphrase)
 }
 
 // CompareLengths chooses the right function to treat the Phrase and Personal Infos.
@@ -67,7 +87,7 @@ func CompareLengths(p Passphrase, m int) string {
 		password = SameLengths(p, n)
 
 	case n > m:
-		fmt.Println("Phrase longer than desired.")
+		//fmt.Println("Phrase longer than desired.")
 		password = Longer(p, m)
 	case n < m:
 		fmt.Println("Phrase shorter than desired.")
