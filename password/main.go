@@ -40,9 +40,9 @@ type MyData struct {
 
 func main() {
 
-	phrase := "WoodTaxi370"
-	s1 := "Taxi"
-	s2 := "370"
+	phrase := "MyNameIsJohnAndIWasBornOn1968"
+	s1 := "John"
+	s2 := "1960"
 	m := 8
 
 	M := TestFrecuency(phrase, s1, s2, m)
@@ -105,10 +105,10 @@ func main() {
 	// } else {
 	// 	m, _ = strconv.Atoi(length)
 	// }
-	// p := Passphrase{phrse, s1, s2}
-	// pssphrase := CompareLengths(p, m)
-	// fmt.Println("Your passphrase could be:")
-	// fmt.Println(pssphrase)
+	p := Passphrase{phrase, s1, s2}
+	pssphrase := CompareLengths(p, m)
+	fmt.Println("Your passphrase could be:")
+	fmt.Println(pssphrase)
 }
 
 // CompareLengths chooses the right function to treat the Phrase and Personal Infos.
