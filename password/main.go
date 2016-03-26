@@ -1,7 +1,9 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"os"
 	//	"strconv"
 )
 
@@ -29,6 +31,13 @@ type Passphrase struct {
 	PersonalInfo2 string
 }
 
+// MyData type created to export JSON data.
+type MyData struct {
+	Position  int
+	Character string
+	Frequency int
+}
+
 func main() {
 
 	phrase := "WoodTaxi370"
@@ -37,8 +46,33 @@ func main() {
 	m := 8
 
 	M := TestFrecuency(phrase, s1, s2, m)
-	fmt.Println(M)
+	//fmt.Println(M)
 
+	Array := []MyData{}
+
+	for i := range M {
+		data := MyData{
+			Position:  i.position,
+			Character: i.character,
+			Frequency: M[i],
+		}
+
+		Array = append(Array, data)
+	}
+	//fmt.Println(Array)
+	b, err := json.Marshal(Array)
+	if err != nil {
+		fmt.Println("error:", err)
+	}
+
+	file, _ := os.Create("test.json")
+	if err != nil {
+		fmt.Println("error:", err)
+	}
+
+	file.Write(b)
+	defer file.Close()
+	fmt.Println("json file writen")
 	// for _, s := range s1 {
 	// 	for i := 0; i < m; i++ {
 	// 		fmt.Println(s, M[Coord{i, string(s)}])

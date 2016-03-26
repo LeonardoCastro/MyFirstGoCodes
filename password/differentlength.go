@@ -59,7 +59,7 @@ func Shorter(p Passphrase, m, n int) string {
 	rand.Seed(seed)
 	for i := 0; i < (m - n); i++ {
 		idx := rand.Intn(n)
-		password = password[:idx] + strconv.Itoa(idx) + password[idx:]
+		password = password[:idx] + strconv.Itoa(rand.Intn(10)) + password[idx:]
 	}
 	return password
 }
