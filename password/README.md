@@ -13,6 +13,6 @@ is then used to generate the passphrase. The algorithm uses `math.rand` to have 
 
 An 8-characters passphrase resultant for this case may be:
 
-**My068J5hN&1o**.
+**M68J5hN&**.
 
 The algorithm is based on the [Blowfish algorithm](http://www.usenix.org/event/usenix99/provos/provos.pdf) and is used at this other [repo](http://github.com/LeonardoCastro/myapp).

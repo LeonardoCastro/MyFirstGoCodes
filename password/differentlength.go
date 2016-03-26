@@ -1,7 +1,7 @@
 package main
 
 import (
-	//	"fmt"
+	// "fmt"
 	"math/rand"
 	"strconv"
 	"strings"
@@ -12,6 +12,7 @@ import (
 func Longer(p Passphrase, m int) string {
 	p.Phrase = WordsForSym(p.Phrase)
 	n := len(p.Phrase)
+	// fmt.Println(n)
 	password := p.Phrase
 	switch {
 	case n > m:
@@ -43,9 +44,11 @@ func Shortening(p Passphrase, m, n int) string {
 			arrayPassword = strings.Split(strings.Join(arrayPassword, ""), "")
 			changes++
 		}
+		// fmt.Println(len(arrayPassword))
 	}
 	//fmt.Println(arrayPassword)
 	p.Phrase = strings.Join(arrayPassword, "")
+	// fmt.Println(p)
 	password := SameLengths(p, n)
 
 	return password

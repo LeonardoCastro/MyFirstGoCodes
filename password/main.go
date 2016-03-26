@@ -1,9 +1,9 @@
 package main
 
 import (
-	"encoding/json"
+	//	"encoding/json"
 	"fmt"
-	"os"
+	//"os"
 	//	"strconv"
 )
 
@@ -42,37 +42,37 @@ func main() {
 
 	phrase := "MyNameIsJohnAndIWasBornOn1968"
 	s1 := "John"
-	s2 := "1960"
+	s2 := "1968"
 	m := 8
 
-	M := TestFrecuency(phrase, s1, s2, m)
-	//fmt.Println(M)
+	M := TestLength(phrase, s1, s2, m)
+	fmt.Println(M)
 
-	Array := []MyData{}
-
-	for i := range M {
-		data := MyData{
-			Position:  i.position,
-			Character: i.character,
-			Frequency: M[i],
-		}
-
-		Array = append(Array, data)
-	}
-	//fmt.Println(Array)
-	b, err := json.Marshal(Array)
-	if err != nil {
-		fmt.Println("error:", err)
-	}
-
-	file, _ := os.Create("test.json")
-	if err != nil {
-		fmt.Println("error:", err)
-	}
-
-	file.Write(b)
-	defer file.Close()
-	fmt.Println("json file writen")
+	// Array := []MyData{}
+	//
+	// for i := range M {
+	// 	data := MyData{
+	// 		Position:  i.position,
+	// 		Character: i.character,
+	// 		Frequency: M[i],
+	// 	}
+	//
+	// 	Array = append(Array, data)
+	// }
+	// //fmt.Println(Array)
+	// b, err := json.Marshal(Array)
+	// if err != nil {
+	// 	fmt.Println("error:", err)
+	// }
+	//
+	// file, _ := os.Create("test.json")
+	// if err != nil {
+	// 	fmt.Println("error:", err)
+	// }
+	//
+	// file.Write(b)
+	// defer file.Close()
+	// fmt.Println("json file writen")
 	// for _, s := range s1 {
 	// 	for i := 0; i < m; i++ {
 	// 		fmt.Println(s, M[Coord{i, string(s)}])
