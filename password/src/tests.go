@@ -1,4 +1,4 @@
-package main
+package password
 
 // Coord is the coordinate type used.
 type Coord struct {
